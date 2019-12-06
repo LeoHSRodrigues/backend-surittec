@@ -1,11 +1,15 @@
 package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Telefone implements Serializable{
@@ -14,18 +18,19 @@ public class Telefone implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer telefone;
-	private Cliente cliente;
+	private List<Telefone> telefone = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private Cliente clienteTelefone;
 	
 	public Telefone() {
 		
 	}
 
-	public Telefone(Integer id, Cliente cliente, Integer telefone) {
+	public Telefone(Integer id, Cliente cliente) {
 		super();
 		this.id = id;
-		this.cliente = cliente;
-		this.telefone = telefone;
+		this.clienteTelefone = cliente;
 	}
 
 	public Integer getId() {
@@ -36,20 +41,20 @@ public class Telefone implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getTelefone() {
+	public List<Telefone> getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(List<Telefone> telefone) {
 		this.telefone = telefone;
 	}
 
 	public Cliente getCliente() {
-		return cliente;
+		return clienteTelefone;
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+		this.clienteTelefone = cliente;
 	}
 
 	@Override

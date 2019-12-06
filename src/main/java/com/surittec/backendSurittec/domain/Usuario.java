@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.surittec.backendSurittec.domain.enums.tipoUsuario;
+
 @Entity
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -16,6 +18,7 @@ public class Usuario implements Serializable{
 	private Integer id;
 	private String login;
 	private String senha;
+	private Integer tipousuario;
 	
 	
 	public Usuario() {
@@ -23,11 +26,12 @@ public class Usuario implements Serializable{
 	}
 
 
-	public Usuario(Integer id, String login, String senha) {
+	public Usuario(Integer id, String login, String senha, tipoUsuario tipousuario) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.senha = senha;
+		this.tipousuario = tipousuario.getCod();
 	}
 
 
@@ -60,6 +64,13 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 
+	public tipoUsuario getTipousuario() {
+		return tipoUsuario.toEnum(tipousuario);
+	}
+
+	public void setTipousuario(tipoUsuario tipousuario) {
+		this.tipousuario = tipousuario.getCod();
+	}
 
 	@Override
 	public int hashCode() {
