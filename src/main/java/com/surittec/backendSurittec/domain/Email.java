@@ -2,21 +2,29 @@ package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Email implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer id_cliente;
 	private Integer email;
+	private Cliente cliente;
 	
 	public Email() {
 		
 	}
 
-	public Email(Integer id, Integer id_cliente, Integer email) {
+	public Email(Integer id, Cliente cliente, Integer email) {
 		super();
 		this.id = id;
-		this.id_cliente = id_cliente;
+		this.cliente = cliente;
 		this.email = email;
 	}
 
@@ -28,13 +36,6 @@ public class Email implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getId_cliente() {
-		return id_cliente;
-	}
-
-	public void setId_cliente(Integer id_cliente) {
-		this.id_cliente = id_cliente;
-	}
 
 	public Integer getEmail() {
 		return email;
@@ -42,6 +43,14 @@ public class Email implements Serializable{
 
 	public void setEmail(Integer email) {
 		this.email = email;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
@@ -68,6 +77,7 @@ public class Email implements Serializable{
 			return false;
 		return true;
 	}
+
 
 	
 	

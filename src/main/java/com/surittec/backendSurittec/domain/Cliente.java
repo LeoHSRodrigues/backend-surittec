@@ -1,13 +1,26 @@
 package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nomeCliente;
 	private String CPF;
+	private List<Email> email = new ArrayList<>();
+	private List<Endereco> endereco = new ArrayList<>();
+	private List<Telefone> telefone = new ArrayList<>();
 	
 	
 	public Cliente() {
@@ -60,7 +73,6 @@ public class Cliente implements Serializable{
 		return result;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,7 +88,5 @@ public class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

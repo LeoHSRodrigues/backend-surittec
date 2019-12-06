@@ -2,27 +2,35 @@ package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer id_cliente;
 	private String CEP;
 	private String logradouro;
 	private String bairro;
 	private String cidade;
 	private String UF;
 	private String complemento;
+	private Cliente cliente;
 	
 	public Endereco() {
 		
 	}
 
-	public Endereco(Integer id, Integer id_cliente, String cep, String logradouro, String bairro, String cidade,
+	public Endereco(Integer id, Cliente cliente, String cep, String logradouro, String bairro, String cidade,
 			String uf, String complemento) {
 		super();
 		this.id = id;
-		this.id_cliente = id_cliente;
+		this.cliente = cliente;
 		CEP = cep;
 		this.logradouro = logradouro;
 		this.bairro = bairro;
@@ -37,14 +45,6 @@ public class Endereco implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getId_cliente() {
-		return id_cliente;
-	}
-
-	public void setId_cliente(Integer id_cliente) {
-		this.id_cliente = id_cliente;
 	}
 
 	public String getCEP() {
@@ -93,6 +93,14 @@ public class Endereco implements Serializable{
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
