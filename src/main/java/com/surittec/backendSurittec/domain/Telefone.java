@@ -1,15 +1,14 @@
 package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.surittec.backendSurittec.domain.enums.tipoTelefone;
 
 @Entity
 public class Telefone implements Serializable{
@@ -18,7 +17,9 @@ public class Telefone implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private List<Telefone> telefone = new ArrayList<>();
+	private String telefone;
+	private Integer tipotelefone;
+	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente clienteTelefone;
@@ -27,10 +28,12 @@ public class Telefone implements Serializable{
 		
 	}
 
-	public Telefone(Integer id, Cliente cliente) {
+	public Telefone(Integer id, String telefone, tipoTelefone tipotelefone, Cliente clienteTelefone) {
 		super();
 		this.id = id;
-		this.clienteTelefone = cliente;
+		this.telefone = telefone;
+		this.tipotelefone = tipotelefone.getCod();
+		this.clienteTelefone = clienteTelefone;
 	}
 
 	public Integer getId() {
@@ -41,20 +44,28 @@ public class Telefone implements Serializable{
 		this.id = id;
 	}
 
-	public List<Telefone> getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(List<Telefone> telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+	@JsonIgnore
 	public Cliente getCliente() {
 		return clienteTelefone;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.clienteTelefone = cliente;
+	}
+
+	public tipoTelefone getTipotelefone() {
+		return tipoTelefone.toEnum(tipotelefone);
+	}
+
+	public void setTipotelefone(tipoTelefone tipotelefone) {
+		this.tipotelefone = tipotelefone.getCod();
 	}
 
 	@Override

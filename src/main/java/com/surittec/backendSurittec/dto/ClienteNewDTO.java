@@ -4,22 +4,47 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.surittec.backendSurittec.domain.Email;
 import com.surittec.backendSurittec.domain.Telefone;
+
 
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message="Nome obrigatório")
+	@Length(min=3, max=100,message="Tamanho entre 3 e 100 caracteres")
+	@Pattern(regexp = "^[A-Za-z0-9- ]+$")
 	private String nome;
+	
+	@NotEmpty(message="CPF obrigatório")
 	private String CPF;
+	
+	@NotEmpty(message="CEP obrigatório")
 	private String CEP;
+	
+	@NotEmpty(message="Logradouro obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Bairro obrigatório")
 	private String bairro;
+	
+	@NotEmpty(message="Cidade obrigatório")
 	private String cidade;
+	
+	@NotEmpty(message="UF obrigatório")
 	private String UF;
+	
 	private String complemento;
-	private List<Email> email = new ArrayList<>();
-	private List<Telefone> telefone = new ArrayList<>();
+	
+	@NotEmpty(message="Email obrigatório")
+	private List<Email> email  = new ArrayList<>();
+	
+	private List<Telefone> telefone  = new ArrayList<>();
 	
 	public ClienteNewDTO() {
 		
@@ -104,9 +129,5 @@ public class ClienteNewDTO implements Serializable{
 	public void setTelefone(List<Telefone> telefone) {
 		this.telefone = telefone;
 	}
-
-
-	
-	
 	
 }

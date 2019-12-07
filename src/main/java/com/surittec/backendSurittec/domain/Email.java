@@ -1,15 +1,13 @@
 package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Email implements Serializable{
@@ -18,7 +16,8 @@ public class Email implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private List<Email> email = new ArrayList<>();
+	private String email;
+	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente clienteEmail;
@@ -27,10 +26,11 @@ public class Email implements Serializable{
 		
 	}
 
-	public Email(Integer id, Cliente cliente) {
+	public Email(Integer id,String email, Cliente clienteEmail) {
 		super();
 		this.id = id;
-		this.clienteEmail = cliente;
+		this.email = email;
+		this.clienteEmail = clienteEmail;
 	}
 
 	public Integer getId() {
@@ -42,14 +42,14 @@ public class Email implements Serializable{
 	}
 
 
-	public List<Email> getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(List<Email> email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	@JsonIgnore
 	public Cliente getCliente() {
 		return clienteEmail;
 	}

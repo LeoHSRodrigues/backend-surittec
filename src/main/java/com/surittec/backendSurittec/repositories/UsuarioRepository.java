@@ -1,16 +1,14 @@
 package com.surittec.backendSurittec.repositories;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.surittec.backendSurittec.domain.Cliente;
+import com.surittec.backendSurittec.domain.Usuario;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
-	
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+
 	@Transactional(readOnly=true)
-	Cliente findByEmail(String login);
+	Usuario findByLogin(String login);
 	
 }

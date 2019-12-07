@@ -9,6 +9,7 @@ public class ClienteDTO implements Serializable{
 	
 	private String nomeCliente;
 	private String CPF;
+	private Integer id;
 	
 	public ClienteDTO() {
 		
@@ -18,6 +19,7 @@ public class ClienteDTO implements Serializable{
 		
 		nomeCliente = obj.getNome();
 		CPF = obj.getCPF();
+		id = obj.getId();
 		
 	}
 	
@@ -32,6 +34,14 @@ public class ClienteDTO implements Serializable{
 	}
 	public void setCPF(String cpf) {
 		CPF = cpf;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

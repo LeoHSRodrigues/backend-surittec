@@ -20,11 +20,9 @@ public class Usuario implements Serializable{
 	private String senha;
 	private Integer tipousuario;
 	
-	
 	public Usuario() {
 		
 	}
-
 
 	public Usuario(Integer id, String login, String senha, tipoUsuario tipousuario) {
 		super();
@@ -34,31 +32,25 @@ public class Usuario implements Serializable{
 		this.tipousuario = tipousuario.getCod();
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
 	public String getLogin() {
 		return login;
 	}
-
 
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
-
 	public String getSenha() {
 		return senha;
 	}
-
 
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -79,7 +71,6 @@ public class Usuario implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
