@@ -2,6 +2,7 @@ package com.surittec.backendSurittec.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ public class Email implements Serializable{
 	private Integer id;
 	private String email;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cliente_id")
 	private Cliente clienteEmail;
 	
@@ -82,8 +83,4 @@ public class Email implements Serializable{
 			return false;
 		return true;
 	}
-
-
-	
-	
 }

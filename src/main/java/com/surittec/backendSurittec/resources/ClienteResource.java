@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,21 +41,25 @@ public class ClienteResource {
 		return ResponseEntity.ok(listaDTO);
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> createCliente (@Valid @RequestBody ClienteNewDTO obj) {
-		Cliente objeto = service.fromDTO(obj);
+		Integer id = null;
+		Cliente objeto = service.fromDTO(obj,id);
 		service.cadastrarCliente(objeto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objeto.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value="/{id]", method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateCliente (@RequestBody Cliente obj, @PathVariable Integer id) {
-		obj.setId(id);
-		obj = service.atualizarCliente(obj);
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> updateCliente (@Valid @RequestBody ClienteNewDTO obj, @PathVariable Integer id) {
+		Cliente objeto = service.fromDTO(obj, id);
+		service.atualizarCliente(objeto);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteCliente(@PathVariable Integer id) {
 		service.apagarCliente(id);		

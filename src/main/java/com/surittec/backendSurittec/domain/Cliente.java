@@ -3,11 +3,15 @@ package com.surittec.backendSurittec.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Cliente implements Serializable{
@@ -25,10 +29,10 @@ public class Cliente implements Serializable{
 	private String UF;
 	private String complemento;
 
-	@OneToMany(mappedBy = "clienteEmail")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clienteEmail",orphanRemoval=true)
 	private List<Email> email = new ArrayList<>();
 
-	@OneToMany(mappedBy = "clienteTelefone")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clienteTelefone",orphanRemoval=true)
 	private List<Telefone> telefone = new ArrayList<>();
 	
 	public Cliente() {

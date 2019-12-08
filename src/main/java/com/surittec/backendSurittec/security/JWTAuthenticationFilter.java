@@ -48,7 +48,8 @@ private AuthenticationManager authenticationManager;
     protected void successfulAuthentication(HttpServletRequest req,HttpServletResponse res,FilterChain chain,Authentication auth) throws IOException, ServletException {
 	
 		String username = ((UsuarioSS) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
+		String permissao = ((UsuarioSS) auth.getPrincipal()).getTipoContaUsuario().getDescricao();
+        String token = jwtUtil.generateToken(username, permissao);
         res.addHeader("Authorization", "Bearer " + token);
 	}
 	

@@ -37,14 +37,12 @@ public class ClienteService {
 	public Cliente cadastrarCliente(Cliente obj) {
 		obj.setId(null);
 		repo.save(obj);
-		repoEmail.saveAll(obj.getEmail());
-		repoTelefone.saveAll(obj.getTelefone());
 		return obj;
 	}
 
 	public Cliente atualizarCliente(Cliente obj) {
-		buscarUm(obj.getId());
-		return repo.save(obj);
+		repo.save(obj);
+		return obj;
 	}
 
 	public void apagarCliente(Integer id) {
@@ -52,18 +50,17 @@ public class ClienteService {
 		repo.deleteById(id);
 	}
 	
-
-	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCPF(), objDto.getCEP(), objDto.getLogradouro(),
+	public Cliente fromDTO(ClienteNewDTO objDto, Integer id) {
+		Cliente cli = new Cliente(id, objDto.getNome(), objDto.getCPF(), objDto.getCEP(), objDto.getLogradouro(),
 				objDto.getBairro(), objDto.getCidade(), objDto.getUF(), objDto.getComplemento());
 		
 		for(Email emp : objDto.getEmail()){
-			Email email = new Email(null, emp.getEmail(), cli);
+			Email email = new Email(emp.getId(), emp.getEmail(), cli);
 			cli.getEmail().add(email);
 		}
 		
 		for(Telefone tele: objDto.getTelefone()){
-			Telefone telefone = new Telefone(null, tele.getTelefone(), tele.getTipotelefone(), cli);
+			Telefone telefone = new Telefone(tele.getId(), tele.getTelefone(), tele.getTipotelefone(), cli);
 			cli.getTelefone().add(telefone);
 		}
 		return cli;

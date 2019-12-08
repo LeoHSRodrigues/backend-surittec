@@ -27,7 +27,7 @@ public class UsuarioSS implements UserDetails{
 		this.id = id;
 		this.login = login;
 		this.senha = senha;
-		this.setTipoContaUsuario(tipoContaUsuario);
+		this.tipoContaUsuario = tipoContaUsuario;
 	}
 
 	public Integer getId(){
@@ -36,11 +36,14 @@ public class UsuarioSS implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		    authorities.add(new SimpleGrantedAuthority("Admin"));
-		    authorities.add(new SimpleGrantedAuthority("Comum"));
-			return authorities;
 		
+		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		if (tipoContaUsuario.getCod() == 0) {
+			authorities.add(new SimpleGrantedAuthority("ADMIN"));			
+		} else {			
+			authorities.add(new SimpleGrantedAuthority("NORMAL"));
+		}
+			return authorities;
 	}
 
 	@Override
