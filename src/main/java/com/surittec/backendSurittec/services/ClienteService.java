@@ -9,8 +9,6 @@ import com.surittec.backendSurittec.domain.Email;
 import com.surittec.backendSurittec.domain.Telefone;
 import com.surittec.backendSurittec.dto.ClienteNewDTO;
 import com.surittec.backendSurittec.repositories.ClienteRepository;
-import com.surittec.backendSurittec.repositories.EmailRepository;
-import com.surittec.backendSurittec.repositories.TelefoneRepository;
 
 @Service
 public class ClienteService {
@@ -19,11 +17,6 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 
-	@Autowired
-	private EmailRepository repoEmail;
-
-	@Autowired
-	private TelefoneRepository repoTelefone;
 
 	public Cliente buscarUm(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
