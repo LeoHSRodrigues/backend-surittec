@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class ClienteResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
+	@CrossOrigin(origins = "http://localhost:3000")
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> lista = service.buscarTodos();
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
@@ -42,6 +44,7 @@ public class ClienteResource {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> createCliente (@Valid @RequestBody ClienteNewDTO obj) {
 		Integer id = null;
@@ -52,6 +55,7 @@ public class ClienteResource {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> updateCliente (@Valid @RequestBody ClienteNewDTO obj, @PathVariable Integer id) {
 		Cliente objeto = service.fromDTO(obj, id);
@@ -60,6 +64,7 @@ public class ClienteResource {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteCliente(@PathVariable Integer id) {
 		service.apagarCliente(id);		
